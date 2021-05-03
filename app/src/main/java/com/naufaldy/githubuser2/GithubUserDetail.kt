@@ -107,10 +107,19 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (view.id == R.id.btn_fav){
-            if(favStatus){
-                favHelper.deleteById(favorite?.username.toString())
-                Toast.makeText(this, "Delete Favorite", )
+        val favData =intent.getParcelableExtra(EXTRA_FAV_DATA) as UserData
+        when (view?.id){
+            R.id.btn_fav ->{
+                if (favStatus){
+                    val githubUser = favData.username.toString()
+                    favHelper.deleteById(githubUser)
+                    Toast.makeText(this, "Data dihapus dari list favorite",Toast.LENGTH_SHORT).show()
+                    setFavData(false)
+                    favStatus = true
+                }
+                else{
+
+                }
             }
         }
     }
