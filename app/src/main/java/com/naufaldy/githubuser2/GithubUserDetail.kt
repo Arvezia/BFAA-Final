@@ -47,25 +47,25 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
             val favUsers : Int = R.drawable.ic_baseline_favorite_24
             btn_fav.setImageResource(favUsers)
         }else{
-            setData()
+            val user: UserData? =intent.getParcelableExtra(EXTRA_USER)
+
+            if (user != null) {
+
+
+                Glide.with(this)
+                        .load(user.avatar)
+                        .into(profile_picture)
+                dt_name.text = user.name
+                dt_username.text = user.username
+                dt_followers.text ="Followers  ${user.followers}"
+                dt_following.text = "Following  ${user.following}"
+
+                tabViewPage(user.username!!)
+            }
+            btn_fav.setOnClickListener(this)
         }
 
-        val user: UserData? =intent.getParcelableExtra(EXTRA_USER)
 
-        if (user != null) {
-
-
-            Glide.with(this)
-                    .load(user.avatar)
-                    .into(profile_picture)
-            dt_name.text = user.name
-            dt_username.text = user.username
-            dt_followers.text ="Followers  ${user.followers}"
-            dt_following.text = "Following  ${user.following}"
-
-            tabViewPage(user.username!!)
-        }
-        btn_fav.setOnClickListener(this)
 
     }
     private fun tabViewPage(username:String){
@@ -80,25 +80,33 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     }
 
 
-/*    private fun setData(){
-        val userData = intent.getParcelableExtra(EXTRA_USER) as UserData
-        userData.username?.let { setActionBar(it) }
-        dt_name.text = userData.name
-        dt_username.text = userData.username
-        Glide.with(this)
-                .load(userData.avatar)
-                .into(profile_picture)
-        tv_github_username.text = userData.username
+/*            val user: UserData? =intent.getParcelableExtra(EXTRA_USER)
+
+        if (user != null) {
+
+
+            Glide.with(this)
+                    .load(user.avatar)
+                    .into(profile_picture)
+            dt_name.text = user.name
+            dt_username.text = user.username
+            dt_followers.text ="Followers  ${user.followers}"
+            dt_following.text = "Following  ${user.following}"
+
+            tabViewPage(user.username!!)
+        } */
+
+    private fun setFavData(favStatus: Boolean){
+        if(favStatus){
+            btn_fav.setImageResource(R.drawable.ic_baseline_favorite_24)
+        }
+        else{
+            btn_fav.setImageResource(R.drawable.ic_baseline_unfavorite_24)
+        }
 
     }
 
-    private fun setFavData(){
-
-    }*/
-
     override fun onClick(view: View?) {
-        val favUsers: Int = R.drawable.ic_baseline_favorite_24
-        val regUsers: Int = R.drawable.ic_baseline_unfavorite_24
         if (view.id == R.id.btn_fav){
             if(favStatus){
                 favHelper.deleteById(favorite?.username.toString())
