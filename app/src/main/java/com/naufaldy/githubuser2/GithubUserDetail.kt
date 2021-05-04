@@ -23,10 +23,16 @@ import kotlinx.android.synthetic.main.github_list_menu.view.*
 
 class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     companion object{
-    const val EXTRA_USER ="extra user"
-    const val EXTRA_FAV = "extra fav"
-    const val EXTRA_POSITION = "extra position"
-    const val EXTRA_FAV_DATA = "extra fav data"
+        const val EXTRA_USER ="extra user"
+
+        // disini kamu putExtra dua data yang sama dengan key yang berbeda.
+        // dapat dilihat kamu menyimpan userDataIntent yang sama
+        // dengan key yang berbeda ( GithubUserDetail.EXTRA_USER, GithubUserDetail.EXTRA_FAV)
+        // satu saja cukup kan?
+//        const val EXTRA_FAV = "extra fav"
+
+        const val EXTRA_POSITION = "extra position"
+        const val EXTRA_FAV_DATA = "extra fav data"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -39,8 +45,6 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     private var favorite: FavoriteData? = null
     private lateinit var imageProfile: String
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_github_user_detail)
@@ -49,30 +53,30 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
         favHelper.open()
         val user: UserData? =intent.getParcelableExtra(EXTRA_USER)
 
-            if (user != null) {
+        if (user != null) {
 
-                favorite = intent.getParcelableExtra(EXTRA_FAV_DATA)
-                if (favorite != null){
-                    setFavData()
-                    favStatus = true
-                    val favUsers: Int = R.drawable.ic_baseline_favorite_24
-                    btn_fav.setImageResource(favUsers)
-                }else{
-                    setData()
-                }
-
-                Glide.with(this)
-                        .load(user.avatar)
-                        .into(profile_picture)
-                dt_name.text = user.name
-                dt_username.text = user.username
-                dt_followers.text ="Followers  ${user.followers}"
-                dt_following.text = "Following  ${user.following}"
-
-                tabViewPage(user.username!!)
+            favorite = intent.getParcelableExtra(EXTRA_FAV_DATA)
+            if (favorite != null){
+                setFavData()
+                favStatus = true
+                val favUsers: Int = R.drawable.ic_baseline_favorite_24
+                btn_fav.setImageResource(favUsers)
+            }else{
+                setData()
             }
-            btn_fav.setOnClickListener(this)
+
+            Glide.with(this)
+                    .load(user.avatar)
+                    .into(profile_picture)
+            dt_name.text = user.name
+            dt_username.text = user.username
+            dt_followers.text ="Followers  ${user.followers}"
+            dt_following.text = "Following  ${user.following}"
+
+            tabViewPage(user.username!!)
         }
+        btn_fav.setOnClickListener(this)
+    }
     private fun setFavData() {
         val favoriteUser = intent.getParcelableExtra(EXTRA_FAV_DATA) as FavoriteData?
 
@@ -131,7 +135,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "User telah dihapus dari daftar favorit", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(regUser)
                 favStatus = true
-                }
+            }
             else{
                 val favUsername = dt_username.text.toString()
                 val favName = dt_name.text.toString()
@@ -151,8 +155,8 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this,"User telah ditambahkan ke daftar favorit",Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(favUser)
             }
-            }
         }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -171,5 +175,5 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-    }
+}
 

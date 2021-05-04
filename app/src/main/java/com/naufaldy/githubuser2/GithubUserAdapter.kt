@@ -27,9 +27,9 @@ class GithubUserAdapter:
         this.onItemClickCallback = onItemClickCallback
     }
 
-   inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-       /*private val binding = GithubListMenuBinding.bind(itemView)
-       binding.tvGithubUsername.text = userData.username*/
+    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        /*private val binding = GithubListMenuBinding.bind(itemView)
+        binding.tvGithubUsername.text = userData.username*/
         fun bind (userData: FavoriteData){
             with(itemView){
                 Glide.with(itemView)
@@ -38,9 +38,9 @@ class GithubUserAdapter:
                         .into(itemView.img_user_photo)
                 itemView.tv_github_username.text = userData.username
 
-                }
             }
         }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int):ListViewHolder {
         val mView = LayoutInflater.from(viewGroup.context)
@@ -53,22 +53,36 @@ class GithubUserAdapter:
 
         val data = mData[position]
         listViewHolder.itemView.setOnClickListener{
-        val userDataIntent = FavoriteData(
-                data.username,
-                data.name,
-                data.following,
-                data.followers,
-                data.avatar
-        )
+
+            // tadi errornya adalah java.lang.ClassCastException: com.naufaldy.githubuser2.FavoriteData cannot be cast to com.naufaldy.githubuser2.UserData
+            // coba lihat object apa yang kamu kirimkan?
+//            val userDataIntent = FavoriteData(
+//                    data.username,
+//                    data.name,
+//                    data.following,
+//                    data.followers,
+//                    data.avatar
+//            )
+            val userDataIntent = UserData(
+                    data.username,
+                    data.name,
+                    data.following,
+                    data.followers,
+                    data.avatar
+            )
             val intent = Intent(it.context, GithubUserDetail::class.java)
+            // disini kamu putExtra dua data yang sama dengan key yang berbeda.
+            // dapat dilihat kamu menyimpan userDataIntent yang sama
+            // dengan key yang berbeda ( GithubUserDetail.EXTRA_USER, GithubUserDetail.EXTRA_FAV)
+            // satu saja cukup kan?
             intent.putExtra(GithubUserDetail.EXTRA_USER,userDataIntent)
-            intent.putExtra(GithubUserDetail.EXTRA_FAV, userDataIntent)
+//            intent.putExtra(GithubUserDetail.EXTRA_FAV, userDataIntent)
             it.context.startActivity(intent)
         }
-        }
+    }
 
     override fun getItemCount(): Int = mData.size
-    }
-    interface OnItemClickCallback{
+}
+interface OnItemClickCallback{
     fun onItemClicked(data:FavoriteData)
-    }
+}

@@ -11,37 +11,37 @@ import kotlinx.android.synthetic.main.github_list_menu.view.*
 
 class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     var listFav = ArrayList<FavoriteData>()
-    set(listFav){
-        if(listFav.size > 0){
-            this.listFav.clear()
-        }
-        this.listFav.addAll(listFav)
+        set(listFav){
+            if(listFav.size > 0){
+                this.listFav.clear()
+            }
+            this.listFav.addAll(listFav)
 
-        notifyDataSetChanged()
-    }
-
-   inner class FavoriteViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-    fun bind(favoriteData: FavoriteData){
-        with(itemView){
-            Glide.with(itemView)
-                    .load(favoriteData.avatar)
-                    .into(itemView.img_user_photo)
-            itemView.tv_github_username.text = favoriteData.username
-            itemView.setOnClickListener(
-                    CustomOnItemClickListener(adapterPosition,object :CustomOnItemClickListener.OnItemClickCallback{
-
-                        override fun onItemClicked(view: View, position: Int) {
-                            val intent = Intent(activity,GithubUserDetail::class.java)
-                            intent.putExtra(GithubUserDetail.EXTRA_POSITION, position)
-                            intent.putExtra(GithubUserDetail.EXTRA_FAV_DATA, favoriteData)
-                            activity.startActivity(intent)
-                        }
-
-                    })
-            )
+            notifyDataSetChanged()
         }
 
-    }
+    inner class FavoriteViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        fun bind(favoriteData: FavoriteData){
+            with(itemView){
+                Glide.with(itemView)
+                        .load(favoriteData.avatar)
+                        .into(itemView.img_user_photo)
+                itemView.tv_github_username.text = favoriteData.username
+                itemView.setOnClickListener(
+                        CustomOnItemClickListener(adapterPosition,object :CustomOnItemClickListener.OnItemClickCallback{
+
+                            override fun onItemClicked(view: View, position: Int) {
+                                val intent = Intent(activity,GithubUserDetail::class.java)
+                                intent.putExtra(GithubUserDetail.EXTRA_POSITION, position)
+                                intent.putExtra(GithubUserDetail.EXTRA_FAV_DATA, favoriteData)
+                                activity.startActivity(intent)
+                            }
+
+                        })
+                )
+            }
+
+        }
 
     }
 

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
         getUserData()
 
 
-       //users.addAll(UserData.listdata)
+        //users.addAll(UserData.listdata)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,38 +76,38 @@ class MainActivity : AppCompatActivity(){
     }
     private fun searchUser(){
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-            //val searchView = binding.searchView as SearchView
+        //val searchView = binding.searchView as SearchView
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-        override fun onQueryTextSubmit(query: String): Boolean {
-            if(query.isNotEmpty()){
-                listUser.clear()
-                showRecyclerList()
-                showLoading(true)
-                getSearchUser(query)
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if(query.isNotEmpty()){
+                    listUser.clear()
+                    showRecyclerList()
+                    showLoading(true)
+                    getSearchUser(query)
 
-            } else{
-            return true
+                } else{
+                    return true
+                }
+                return true
             }
-            return true
-        }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
-    })
+        })
     }
 
     private fun onItemClicked(data: FavoriteData){
-    val moveUser = Intent(this@MainActivity, GithubUserDetail::class.java)
+        val moveUser = Intent(this@MainActivity, GithubUserDetail::class.java)
         moveUser.putExtra(GithubUserDetail.EXTRA_USER, data)
     }
 
     private fun getUserData(){
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users"
 
@@ -120,10 +120,10 @@ class MainActivity : AppCompatActivity(){
                 try {
                     //val responseObject = JSONObject(result)
                     val jsonArray = JSONArray(result)
-                        for (i in 0 until jsonArray.length()) {
+                    for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.getJSONObject(i)
                         val username: String = jsonObject.getString("login")
-                            var userData = FavoriteData(username)
+                        var userData = FavoriteData(username)
                         listUser.add(userData)
 
                     }
@@ -158,56 +158,56 @@ class MainActivity : AppCompatActivity(){
     private fun getSearchUser(query: String) {
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
-            val url = "https://api.github.com/search/users?q=$query"
+        val url = "https://api.github.com/search/users?q=$query"
 
-            client.get(url, object : AsyncHttpResponseHandler() {
-                override fun onSuccess(statusCode: Int, headers: Array<out Header>, responseBody: ByteArray) {
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Array<out Header>, responseBody: ByteArray) {
 
 
-                    val result = String(responseBody)
-                    Log.d(TAG, result)
-                    try {
-                        listUser.clear()
-                        val jsonArray = JSONObject(result)
-                        val searchedUser = jsonArray.getJSONArray("items")
-                        for (i in 0 until searchedUser.length()) {
-                            val jsonObject = searchedUser.getJSONObject(i)
-                            val username: String = jsonObject.getString("login")
-                            var userData = FavoriteData(username)
-                            listUser.add(userData)
-
-                        }
-
-                        getUserDetail(listUser)
-
-                    } catch (e: Exception) {
-                        Log.d("Exception", e.message.toString())
-                        /*Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
-                            .show()
-                    e.printStackTrace()*/
+                val result = String(responseBody)
+                Log.d(TAG, result)
+                try {
+                    listUser.clear()
+                    val jsonArray = JSONObject(result)
+                    val searchedUser = jsonArray.getJSONArray("items")
+                    for (i in 0 until searchedUser.length()) {
+                        val jsonObject = searchedUser.getJSONObject(i)
+                        val username: String = jsonObject.getString("login")
+                        var userData = FavoriteData(username)
+                        listUser.add(userData)
 
                     }
 
+                    getUserDetail(listUser)
+
+                } catch (e: Exception) {
+                    Log.d("Exception", e.message.toString())
+                    /*Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
+                        .show()
+                e.printStackTrace()*/
+
                 }
 
+            }
 
-                override fun onFailure(statusCode: Int, headers: Array<out Header>, responseBody: ByteArray, error: Throwable) {
 
-                    val errorMessage = when (statusCode) {
-                        401 -> "$statusCode : Bad Request"
-                        403 -> "$statusCode : Forbidden"
-                        404 -> "$statusCode : Not Found"
-                        else -> "$statusCode : ${error.message}"
-                    }
-                    Log.d("onFailure", error.message.toString())
-                    /*Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
-                        .show()*/
+            override fun onFailure(statusCode: Int, headers: Array<out Header>, responseBody: ByteArray, error: Throwable) {
+
+                val errorMessage = when (statusCode) {
+                    401 -> "$statusCode : Bad Request"
+                    403 -> "$statusCode : Forbidden"
+                    404 -> "$statusCode : Not Found"
+                    else -> "$statusCode : ${error.message}"
                 }
-            })
-        }
+                Log.d("onFailure", error.message.toString())
+                /*Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
+                    .show()*/
+            }
+        })
+    }
 
 
     private fun getUserDetail(listUser: ArrayList<FavoriteData>) {
@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity(){
 
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
         for ((i,userData ) in listUser.withIndex()) {
