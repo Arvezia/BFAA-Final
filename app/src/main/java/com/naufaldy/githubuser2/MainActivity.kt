@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity(){
     private fun getUserData(){
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users"
 
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity(){
     private fun getSearchUser(query: String) {
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
             val url = "https://api.github.com/search/users?q=$query"
@@ -215,7 +215,7 @@ class MainActivity : AppCompatActivity(){
 
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
         for ((i,userData ) in listUser.withIndex()) {

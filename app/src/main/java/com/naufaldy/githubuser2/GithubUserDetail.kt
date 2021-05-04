@@ -6,6 +6,8 @@ import android.content.Intent
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -49,7 +51,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
 
             if (user != null) {
 
-                favStatus = favHelper.queryById(user.username)
+                favorite = intent.getParcelableExtra(EXTRA_FAV_DATA)
                 if (favorite != null){
                     setFavData()
                     favStatus = true
@@ -71,6 +73,23 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
             }
             btn_fav.setOnClickListener(this)
         }
+
+    private fun setFavData() {
+        val favoriteUser: FavoriteData? =intent.getParcelableExtra(EXTRA_USER)
+
+        if (favoriteUser != null) {
+
+
+            Glide.with(this)
+                    .load(favoriteUser.avatar)
+                    .into(profile_picture)
+            dt_name.text = favoriteUser.name
+            dt_username.text = favoriteUser.username
+            dt_followers.text ="Followers  ${favoriteUser.followers}"
+            dt_following.text = "Following  ${favoriteUser.following}"
+            imageProfile = favoriteUser.avatar.toString()
+        }
+    }
 
     private fun tabViewPage(username:String){
         val detailPagerAdapter = DetailPagerAdapter(this,username)
@@ -102,23 +121,6 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private fun setFavData(favStatus: Boolean){
-        val favoriteUser: FavoriteData? =intent.getParcelableExtra(EXTRA_USER)
-
-        if (favoriteUser != null) {
-
-
-            Glide.with(this)
-                    .load(favoriteUser.avatar)
-                    .into(profile_picture)
-            dt_name.text = favoriteUser.name
-            dt_username.text = favoriteUser.username
-            dt_followers.text ="Followers  ${favoriteUser.followers}"
-            dt_following.text = "Following  ${favoriteUser.following}"
-            imageProfile = favoriteUser.avatar.toString()
-        }
-
-    }
 
     override fun onClick(view: View) {
         val favUser: Int = R.drawable.ic_baseline_favorite_24
@@ -151,5 +153,23 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
             }
             }
         }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.favourite_menu -> {
+                val intent = Intent(this, FavouriteActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.setting_menu -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     }
 

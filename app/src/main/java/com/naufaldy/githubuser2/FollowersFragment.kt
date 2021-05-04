@@ -67,7 +67,7 @@ class FollowersFragment : Fragment() {
     private fun getFollowersData(username: String){
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${username}/followers"
 
@@ -122,7 +122,7 @@ class FollowersFragment : Fragment() {
 
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
         for ((i,followersData ) in listUser.withIndex()) {
