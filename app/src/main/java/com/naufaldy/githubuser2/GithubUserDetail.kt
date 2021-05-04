@@ -73,9 +73,9 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
             }
             btn_fav.setOnClickListener(this)
         }
-
     private fun setFavData() {
-        val favoriteUser: FavoriteData? =intent.getParcelableExtra(EXTRA_USER)
+        val favoriteUser = intent.getParcelableExtra(EXTRA_FAV_DATA) as FavoriteData?
+
 
         if (favoriteUser != null) {
 
@@ -103,7 +103,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setData(){
-        val user: UserData? =intent.getParcelableExtra(EXTRA_USER)
+        val user=intent.getParcelableExtra(EXTRA_USER) as UserData?
 
         if (user != null) {
 

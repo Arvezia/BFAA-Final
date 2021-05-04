@@ -11,7 +11,7 @@ import kotlin.jvm.Throws
 
 class FavoriteUserHelper(context: Context) {
     private var databaseHelper: DatabaseHelper = DatabaseHelper(context)
-    private lateinit var database: SQLiteDatabase
+    private var database: SQLiteDatabase = databaseHelper.writableDatabase
 
     companion object {
         private const val DATABASE_TABLE = TABLE_NAME

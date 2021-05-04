@@ -62,7 +62,7 @@ class GithubUserAdapter:
         )
             val intent = Intent(it.context, GithubUserDetail::class.java)
             intent.putExtra(GithubUserDetail.EXTRA_USER,userDataIntent)
-            intent.putExtra(GithubUserDetail.EXTRA_FAV_DATA, userDataIntent)
+            intent.putExtra(GithubUserDetail.EXTRA_FAV, userDataIntent)
             it.context.startActivity(intent)
         }
         }

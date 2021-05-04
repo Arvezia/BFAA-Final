@@ -15,11 +15,11 @@ class DatabaseHelper (context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         private const val DATABASE_NAME = "favorite_user"
         private const val DATABASE_VERSION = 1
         private const val SQL_CREATE_TABLE = "CREATE TABLE $TABLE_NAME"+
-                "${USERNAME} TEXT NOT NULL"+
-                "${NAME} TEXT NOT NULL"+
-                "${AVATAR} TEXT NOT NULL"+
-                "${FOLLOWING} TEXT NOT NULL"+
-                "${FOLLOWERS} TEXT NOT NULL"
+                "(${USERNAME} TEXT NOT NULL,"+
+                "${NAME} TEXT NOT NULL,"+
+                "${AVATAR} TEXT NOT NULL,"+
+                "${FOLLOWING} TEXT NOT NULL,"+
+                "${FOLLOWERS} TEXT NOT NULL)"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
