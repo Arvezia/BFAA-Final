@@ -7,6 +7,7 @@ class DatabaseContract {
         companion object{
             const val TABLE_NAME = "fav"
             const val USERNAME = "username"
+            const val NAME = "name"
             const val AVATAR = "avatar_url"
             const val FOLLOWING = "following"
             const val FOLLOWERS = "followers"

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.AVATAR
 import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.FOLLOWERS
 import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.FOLLOWING
+import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.NAME
 import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.TABLE_NAME
 import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.USERNAME
 
@@ -15,6 +16,7 @@ class DatabaseHelper (context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         private const val DATABASE_VERSION = 1
         private const val SQL_CREATE_TABLE = "CREATE TABLE $TABLE_NAME"+
                 "${USERNAME} TEXT NOT NULL"+
+                "${NAME} TEXT NOT NULL"+
                 "${AVATAR} TEXT NOT NULL"+
                 "${FOLLOWING} TEXT NOT NULL"+
                 "${FOLLOWERS} TEXT NOT NULL"

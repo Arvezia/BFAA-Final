@@ -10,6 +10,7 @@ object MappingHelper {
         favCursor?.apply {
             while (moveToNext()){
                 val username = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.USERNAME))
+                val name = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.NAME))
                 val avatar = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.AVATAR))
                 val followers = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.FOLLOWERS))
                 val following = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.FOLLOWING))
