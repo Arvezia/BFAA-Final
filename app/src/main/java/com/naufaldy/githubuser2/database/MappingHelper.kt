@@ -15,7 +15,7 @@ object MappingHelper {
                 val followers = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.FOLLOWERS))
                 val following = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.FOLLOWING))
                 val favorite = getString(getColumnIndexOrThrow(DatabaseContract.NoteCollumns.FAVORITE))
-                favList.add(FavoriteData(username, avatar, following, followers, favorite))
+                favList.add(FavoriteData(username,name, avatar, following, followers, favorite))
             }
         }
         return favList

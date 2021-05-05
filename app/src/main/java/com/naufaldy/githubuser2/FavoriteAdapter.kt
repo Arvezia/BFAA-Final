@@ -55,7 +55,5 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
         favoriteViewHolder.bind(listFav[position])
     }
 
-    override fun getItemCount(): Int {
-        return listFav.size
-    }
+    override fun getItemCount(): Int = this.listFav.size
 }

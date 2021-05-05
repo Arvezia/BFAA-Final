@@ -53,7 +53,6 @@ class FavouriteActivity : AppCompatActivity() {
                 val cursor = favHelper.queryAll()
                 MappingHelper.mapCursorToArrayList(cursor)
             }
-            favHelper.close()
             favorite_loading.visibility = View.INVISIBLE
             val favorite = defferedFav.await()
             if (favorite.size>0){

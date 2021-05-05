@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.naufaldy.githubuser2.database.DatabaseContract
@@ -86,6 +87,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
 
             Glide.with(this)
                     .load(favoriteUser.avatar)
+                    .apply(RequestOptions().override(100, 100))
                     .into(profile_picture)
             dt_name.text = favoriteUser.name
             dt_username.text = favoriteUser.username
@@ -114,6 +116,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
 
             Glide.with(this)
                     .load(user.avatar)
+                    .apply(RequestOptions().override(100, 100))
                     .into(profile_picture)
             dt_name.text = user.name
             dt_username.text = user.username
@@ -150,6 +153,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
                 values.put(DatabaseContract.NoteCollumns.AVATAR, favAvatar)
                 values.put(DatabaseContract.NoteCollumns.FOLLOWERS, favFollowers)
                 values.put(DatabaseContract.NoteCollumns.FOLLOWING, favFollowing)
+                values.put(DatabaseContract.NoteCollumns.FAVORITE, dataFavorite)
 
                 favStatus = true
                 Toast.makeText(this,"User telah ditambahkan ke daftar favorit",Toast.LENGTH_SHORT).show()
@@ -174,6 +178,11 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        favHelper.close()
     }
 }
 
