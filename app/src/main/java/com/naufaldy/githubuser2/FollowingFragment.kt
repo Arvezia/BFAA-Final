@@ -55,7 +55,7 @@ class FollowingFragment : Fragment() {
     private fun getFollowingData(username: String){
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${username}/following"
 
@@ -110,7 +110,7 @@ class FollowingFragment : Fragment() {
 
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
 
         for ((i,followingData ) in listUser.withIndex()) {

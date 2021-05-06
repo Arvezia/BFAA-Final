@@ -3,6 +3,16 @@
     package="com.naufaldy.githubuser2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <permission
+        android:name="com.naufaldy.githubuser2.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.naufaldy.githubuser2.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
 
     <application
         android:allowBackup="true"
@@ -12,7 +22,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingActivity"></activity>
+        <receiver
+            android:name=".notif.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <provider
+            android:name=".FavUserProvider"
+            android:authorities="com.naufaldy.githubuser2"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.naufaldy.githubuser2.READ_DATABASE"
+            android:writePermission="com.naufaldy.githubuser2.WRITE_DATABASE" />
+
+        <activity android:name=".SettingActivity" />
         <activity android:name=".FavouriteActivity" />
         <activity android:name=".GithubUserDetail" />
         <activity android:name=".MainActivity">

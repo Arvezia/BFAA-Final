@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.CONTENT_URI
 import com.naufaldy.githubuser2.database.FavoriteUserHelper
 import com.naufaldy.githubuser2.database.MappingHelper
 import kotlinx.android.synthetic.main.activity_favourite.*
@@ -50,7 +51,8 @@ class FavouriteActivity : AppCompatActivity() {
             val favHelper = FavoriteUserHelper.getInstance(applicationContext)
             favHelper.open()
             val defferedFav = async(Dispatchers.IO) {
-                val cursor = favHelper.queryAll()
+
+                val cursor =contentResolver.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             favorite_loading.visibility = View.INVISIBLE

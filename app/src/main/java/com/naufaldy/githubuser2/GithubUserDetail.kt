@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.naufaldy.githubuser2.database.DatabaseContract
+import com.naufaldy.githubuser2.database.DatabaseContract.NoteCollumns.Companion.CONTENT_URI
 import com.naufaldy.githubuser2.database.FavoriteUserHelper
 import kotlinx.android.synthetic.main.activity_github_user_detail.*
 import kotlinx.android.synthetic.main.github_list_menu.*
@@ -134,7 +135,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
         val regUser: Int = R.drawable.ic_baseline_unfavorite_24
         if (view.id == R.id.btn_fav){
             if (favStatus){
-                favHelper.deleteById(favorite?.username.toString())
+                favHelper.deleteById(dt_username?.text.toString())
                 Toast.makeText(this, "User telah dihapus dari daftar favorit", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(regUser)
                 favStatus = true
@@ -156,6 +157,7 @@ class GithubUserDetail : AppCompatActivity(), View.OnClickListener {
                 values.put(DatabaseContract.NoteCollumns.FAVORITE, dataFavorite)
 
                 favStatus = true
+                contentResolver.insert(CONTENT_URI, values)
                 Toast.makeText(this,"User telah ditambahkan ke daftar favorit",Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(favUser)
             }
